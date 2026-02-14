@@ -221,55 +221,7 @@
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 FormatRemot. Todos os direitos reservados.</p>
-        </div>
     </footer>
-
-    <!-- Módulo de Testes/Diagnóstico (Remover após validação) -->
-    <div id="test-module"
-        style="position: fixed; bottom: 10px; right: 10px; background: rgba(0,0,0,0.9); color: #fff; padding: 15px; border-radius: 10px; z-index: 10000; font-family: monospace; font-size: 12px; border: 1px solid #0070f3; max-width: 300px;">
-        <h4 style="margin-bottom: 5px; color: #0070f3;">🧪 Diagnóstico de Assets</h4>
-        <div id="diag-intro">Vídeo Intro: Carregando...</div>
-        <div id="diag-pratica">Vídeo Prática: Carregando...</div>
-        <div id="diag-exe">Executável: Verificando...</div>
-    </div>
-
-    <script>
-        window.addEventListener('load', () => {
-            const intro = document.getElementById('video-intro');
-            const pratica = document.getElementById('video-pratica');
-            const diagIntro = document.getElementById('diag-intro');
-            const diagPratica = document.getElementById('diag-pratica');
-            const diagExe = document.getElementById('diag-exe');
-
-            function checkVideo(v, diag, name) {
-                if (v.readyState >= 1) {
-                    diag.innerHTML = `${name}: ✅ OK`;
-                } else {
-                    v.addEventListener('loadedmetadata', () => {
-                        diag.innerHTML = `${name}: ✅ OK`;
-                    });
-                    v.addEventListener('error', () => {
-                        diag.innerHTML = `${name}: ❌ ERRO`;
-                        diag.style.color = '#ff4757';
-                    });
-                }
-            }
-
-            checkVideo(intro, diagIntro, 'Vídeo Intro');
-            checkVideo(pratica, diagPratica, 'Vídeo Prática');
-
-            // Verificação de link externo (Google Drive)
-            const downloadLink = "https://drive.google.com/file/d/1kofXgDKPtgcuuP6EDhXdl5-gELswpz41/view?usp=drive_link";
-            if (downloadLink.includes("drive.google.com")) {
-                diagExe.innerHTML = 'Link Google Drive: ✅ PRONTO';
-            } else {
-                diagExe.innerHTML = 'Link Google Drive: ❌ PENDENTE';
-            }
-        });
-    </script>
 
     <script>
         lucide.createIcons();
