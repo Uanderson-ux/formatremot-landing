@@ -38,7 +38,7 @@
                         </div>
                         <img src="assets/Capturar.PNG" alt="Clique para ver o vídeo" class="video-poster">
                     </div>
-                    <video id="hero-video" playsinline autoplay muted loop>
+                    <video id="hero-video" playsinline>
                         <source src="assets/apresentacao_intro.mp4" type="video/mp4">
                     </video>
                 </div>
@@ -252,17 +252,6 @@
         }
 
         lucide.createIcons();
-
-        // Autoplay Logic: Esconder overlay quando o vídeo começar a tocar
-        const heroVideo = document.getElementById('hero-video');
-        const heroOverlay = document.getElementById('hero-video-overlay');
-
-        if (heroVideo && heroOverlay) {
-            heroVideo.addEventListener('play', () => {
-                heroOverlay.style.opacity = '0';
-                heroOverlay.style.pointerEvents = 'none';
-            });
-        }
 
         // Garantir que os vídeos em loop respeitem os fragmentos de tempo
         document.querySelectorAll('video').forEach(video => {
