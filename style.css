@@ -621,6 +621,40 @@ header nav {
     box-shadow: 0 4px 15px var(--primary-glow);
 }
 
+.trial-text {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.trial-text a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.trial-text a:hover {
+    text-decoration: underline;
+}
+
+.trial-banner {
+    margin-top: 60px;
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(0, 112, 255, 0.1) 0%, rgba(0, 242, 255, 0.05) 100%);
+    border-radius: 24px;
+    border: 1px dashed var(--primary);
+}
+
+.trial-content h3 {
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.trial-content p {
+    margin-bottom: 25px;
+    color: var(--text-muted);
+}
+
 .price {
     font-size: 4rem;
     font-weight: 900;
