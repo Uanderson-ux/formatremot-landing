@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Teste 24h - FormatRemot</title>
+    <style>
+        :root {
+            --primary: #0070f3;
+            --bg: #0a0a0a;
+            --card: #161616;
+            --text: #ffffff;
+            --text-muted: #888;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #0070f3, #00f2ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            padding-left: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            background: #222;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-generate {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0, 112, 255, 0.3);
+        }
+
+        .btn-generate:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.75rem;
+            color: #444;
+        }
+
+        /* Sucesso feedback */
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .status.active {
+            display: block;
+            background: rgba(0, 255, 127, 0.1);
+            color: #00ff7f;
+            border: 1px solid rgba(0, 255, 127, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>FormatRemot</h1>
+        <p>Gerador de Teste 24 Horas</p>
+
+        <div class="input-group">
+            <label>E-mail do Cliente (opcional)</label>
+            <input type="email" id="email" placeholder="cliente@email.com" value="teste@cliente.com">
+        </div>
+
+        <button class="btn-generate" onclick="generateLicense()">GERAR LICENÇA (.json)</button>
+
+        <div id="status" class="status">
+            ✓ Arquivo gerado com sucesso!
+        </div>
+
+        <div class="footer">
+            Válido por 24h a partir do momento da geração.
+        </div>
+    </div>
+
+    <script>
+        function generateLicense() {
+            const emailInput = document.getElementById('email').value || 'teste@cliente.com';
+            const statusBox = document.getElementById('status');
+
+            // 1. Criar dados (24h de validade em UTC)
+            const now = new Date();
+            const validUntil = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+
+            const licenseData = {
+                Email: emailInput,
+                Authorized: true,
+                ValidUntilUtc: validUntil.toISOString()
+            };
+
+            // 2. Transformar em JSON e codificar em Base64
+            const jsonString = JSON.stringify(licenseData);
+            // btoa lida com strings Latin1. Para UTF8 seguro, usamos unescape/encodeURIComponent
+            const encodedData = btoa(unescape(encodeURIComponent(jsonString)));
+
+            // 3. Criar o arquivo e disparar download
+            const blob = new Blob([encodedData], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+
+            a.href = url;
+            a.download = 'license.json';
+            document.body.appendChild(a);
+            a.click();
+
+            // Limpar
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+
+            // Feedback visual
+            statusBox.classList.add('active');
+            setTimeout(() => {
+                statusBox.classList.remove('active');
+            }, 5000);
+        }
+    </script>
+</body>
+
+</html>
