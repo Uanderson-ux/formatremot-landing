@@ -37,8 +37,16 @@
                 <p class="microcopy">Leve (~360MB) • Portátil • Comece a usar hoje</p>
             </div>
             <div class="hero-image">
-                <div class="mockup">
-                    <img src="assets/Capturar.PNG" alt="FormatRemot Interface">
+                <div class="video-main-wrapper" id="main-player">
+                    <div class="video-overlay" id="hero-video-overlay" onclick="toggleHeroVideo()">
+                        <div class="play-btn-modern">
+                            <i data-lucide="play" fill="currentColor"></i>
+                        </div>
+                        <img src="assets/Capturar.PNG" alt="Clique para ver o vídeo" class="video-poster">
+                    </div>
+                    <video id="hero-video" playsinline>
+                        <source src="assets/apresentacao_intro.mp4" type="video/mp4">
+                    </video>
                 </div>
             </div>
         </div>
@@ -224,6 +232,17 @@
     </footer>
 
     <script>
+        // Lógica do Vídeo do Hero (estilo YouTube)
+        function toggleHeroVideo() {
+            const video = document.getElementById('hero-video');
+            const overlay = document.getElementById('hero-video-overlay');
+
+            overlay.style.opacity = '0';
+            overlay.style.pointerEvents = 'none';
+            video.controls = true;
+            video.play();
+        }
+
         lucide.createIcons();
 
         // Garantir que os vídeos em loop respeitem os fragmentos de tempo
