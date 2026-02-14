@@ -1,0 +1,14 @@
+# Ignorar executáveis (GitHub limita a 100MB)
+*.exe
+assets/*.exe
+
+# Ignorar arquivos temporários e logs
+*.log
+.DS_Store
+Thumbs.db
+
+# Guia interno não precisa ir para o site público
+guia_area_de_membros.html
+guia area de membros.txt
+area-de-membros-kiwify.md
+página de vendas.html
